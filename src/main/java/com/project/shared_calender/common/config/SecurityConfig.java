@@ -1,5 +1,7 @@
 package com.project.shared_calender.common.config;
 
+import com.project.shared_calender.common.security.JwtAuthenticationProvider;
+import com.project.shared_calender.common.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final JwtAuthenticationProvider jwtAuthenticationProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -36,7 +39,7 @@ public class SecurityConfig {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 // UsernamePasswordAuth 필터 앞(모든 security 필더 앞)에 커스텀 필터 적용
-                .addFilterBefore(null, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationProvider, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .antMatchers("/",
                         "/pub/**",

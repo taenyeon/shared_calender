@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class User {
 
-    private long id;
+    private long seq;
 
     private String email;
 
@@ -26,10 +26,9 @@ public class User {
     private String phoneNumber;
 
     private Gender gender;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDay;
-
-    private String profileText;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createAt;

@@ -18,23 +18,23 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-  redis:
-    host: localhost
-    port: 6379
-  kafka:
-    bootstrap-servers: 127.0.0.1:9092
-    consumer:
-      group-id: calender
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    properties:
-      spring:
-        json:
-          value
+#  redis:
+#    host: localhost
+#    port: 6379
+#  kafka:
+#    bootstrap-servers: 127.0.0.1:9092
+#    consumer:
+#      group-id: calender
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#    properties:
+#      spring:
+#        json:
+#          value
   output:
     ansi:
       enabled: always

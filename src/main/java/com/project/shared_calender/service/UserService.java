@@ -25,11 +25,16 @@ public class UserService {
     }
 
     public long join(User user, String password) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new ResponseException(ResponseCode.INVALID_REQUEST_PARAM);
-        }
+        checkIsIdentifyEmail(user.getEmail());
         UserEntity userEntity = userMapper.toEntity(user, password);
         return userRepository.save(userEntity).getId();
+    }
+
+    // todo email identify Exception 따로 관리 필요.
+    private void checkIsIdentifyEmail(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new ResponseException(ResponseCode.INVALID_REQUEST_PARAM);
+        }
     }
 
     public User getById(long id) {
@@ -43,14 +48,15 @@ public class UserService {
         return userMapper.toSimpleDetail(userEntity);
     }
 
-    public void modify(long id, User user) {
-        UserEntity userEntity = getEntityById(id);
-        userMapper.merge(userEntity, user);
-        userRepository.save(userEntity);
+    public void modify(long id, User afterUser) {
+        User userEntity = userMapper.toDto(getEntityById(id));
+        userMapper.merge(userEntity, afterUser);
+        userRepository.save(userMapper.toEntity(userEntity));
     }
 
     public void delete(long id) {
         userRepository.deleteById(id);
     }
+
 
 }

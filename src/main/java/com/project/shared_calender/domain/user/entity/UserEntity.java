@@ -3,9 +3,8 @@ package com.project.shared_calender.domain.user.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.shared_calender.domain.user.constant.Gender;
 import com.project.shared_calender.domain.user.constant.UserType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -18,8 +17,9 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Service
 @Entity
+@DynamicUpdate
+@Builder
 @Table(name = "tb_user")
 public class UserEntity implements UserDetails{
 
@@ -52,12 +52,12 @@ public class UserEntity implements UserDetails{
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifyAt;
 
-    @OneToOne
-    @JoinColumn(name = "userSeq")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userSeq", insertable = false, updatable = false)
     private UserProfileEntity userProfileEntity;
 
-    @OneToOne
-    @JoinColumn(name = "userSeq")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userSeq", insertable = false, updatable = false)
     private UserOauthEntity userOauthEntity;
 
     @Override

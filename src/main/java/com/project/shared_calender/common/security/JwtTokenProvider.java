@@ -29,7 +29,6 @@ public class JwtTokenProvider {
     private final long ACCESS_TOKEN_EXPIRATION_MS = Duration.ofMinutes(10).toMillis();
     private final long REFRESH_TOKEN_EXPIRATION_MS = Duration.ofDays(2).toMillis();
 
-
     private final RedisTemplate<String, Object> redisTemplate;
 
     public TokenDto generateToken(UserEntity user) {
