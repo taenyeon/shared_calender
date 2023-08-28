@@ -29,7 +29,7 @@ public enum UserType {
     }
 
     @Converter
-    public static class AttributeConverter implements com.project.shared_calender.domain.user.constant.AttributeConverter<UserType, String> {
+    public static class AttributeConverter implements javax.persistence.AttributeConverter<UserType, String> {
         @Override
         public String convertToDatabaseColumn(UserType type) {
             return type.getCode();

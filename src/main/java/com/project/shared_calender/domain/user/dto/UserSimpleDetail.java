@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserSimpleDetail {
-    private long seq;
+    private long id;
 
     private UserType type;
 

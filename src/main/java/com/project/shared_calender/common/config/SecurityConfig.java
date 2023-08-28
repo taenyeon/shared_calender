@@ -42,10 +42,6 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationProvider, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .antMatchers("/",
-                        "/pub/**",
-                        "/sub/**",
-                        "/stomp/**",
-                        "/user",
                         "/login",
                         ".logout",
                         "/js/**",

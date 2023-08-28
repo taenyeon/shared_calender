@@ -20,15 +20,15 @@ public enum Gender {
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public String getExplanation() {
-        return explanation;
+        return this.explanation;
     }
 
     @Converter
-    public static class AttributeConverter implements com.project.shared_calender.domain.user.constant.AttributeConverter<Gender, String> {
+    public static class AttributeConverter implements javax.persistence.AttributeConverter<Gender, String> {
         @Override
         public String convertToDatabaseColumn(Gender type) {
             return type.getCode();

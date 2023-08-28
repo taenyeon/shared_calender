@@ -7,12 +7,12 @@ import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,12 +20,12 @@ import java.util.Collection;
 @Entity
 @DynamicUpdate
 @Builder
-@Table(name = "tb_user")
+@Table(name = "user")
 public class UserEntity implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "seq")
+    @Column(name = "id")
     private long id;
 
     @Convert(converter = UserType.AttributeConverter.class)
@@ -53,16 +53,12 @@ public class UserEntity implements UserDetails{
     private LocalDateTime modifyAt;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userSeq", insertable = false, updatable = false)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
     private UserProfileEntity userProfileEntity;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userSeq", insertable = false, updatable = false)
-    private UserOauthEntity userOauthEntity;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

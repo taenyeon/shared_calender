@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,12 +15,12 @@ import javax.persistence.Table;
 @Getter
 @Entity
 @Builder
-@Table(name = "tb_user_profile")
+@Table(name = "userProfile")
 public class UserProfileEntity {
 
     @Id
-    @Column(name = "userSeq")
-    private long userId;
+    @Column(name = "id")
+    private long id;
     private String profileText;
     private String profileImageUrl;
 }

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class User {
 
-    private long seq;
+    private long id;
 
     private String email;
 
