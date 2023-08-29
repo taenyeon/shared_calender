@@ -9,7 +9,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSimpleDetail {
+@ToString
+public class UserSimple {
     private long id;
 
     private UserType type;

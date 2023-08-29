@@ -35,13 +35,17 @@ public class JwtAuthenticationProvider extends OncePerRequestFilter {
         String userSeq;
         if (StringUtils.isNotBlank(accessToken)) {
             switch (JwtTokenProvider.validateToken(accessToken)) {
+
                 case ALLOW:
-                    log.info("ALLOW");
+
+                    log.info("[auth check] ALLOW - accessToken : {}, refreshToken : {}", accessToken, refreshToken);
                     userSeq = JwtTokenProvider.getUserSeqFromJWT(accessToken);
                     setUserDetail(Long.parseLong(userSeq));
                     break;
+
                 case EXPIRED:
-                    log.info("EXPIRED");
+
+                    log.info("[auth check] EXPIRED - accessToken : {}, refreshToken : {}", accessToken, refreshToken);
                     userSeq = JwtTokenProvider.getUserSeqFromJWT(refreshToken);
                     if (redisTemplate.opsForValue().get(REFRESH_TOKEN_KEY + userSeq) != null) {
                         Date now = new Date();
@@ -49,17 +53,19 @@ public class JwtAuthenticationProvider extends OncePerRequestFilter {
                         setUserDetail(Long.parseLong(userSeq));
                         response.setHeader(ACCESS_TOKEN_COOKIE_NAME, newAccessToken);
                     } else {
-                        request.setAttribute("unauthorization", ResponseCode.NOT_ALLOW_REFRESH_TOKEN.getResultMessage());
+                        setUnauthorizationResponse(request);
                     }
                     break;
+
                 case NOT_ALLOW:
-                    log.info("NOT ALLOW");
+
+                    log.info("[auth check] NOT ALLOW - accessToken : {}, refreshToken : {}", accessToken, refreshToken);
                     request.setAttribute("unauthorization", ResponseCode.INVALID_TOKEN.getResultMessage());
                     break;
             }
         } else {
             if (refreshToken != null) {
-                log.info("EXPIRED");
+                log.info("[auth check] EXPIRED - accessToken : {}, refreshToken : {}", accessToken, refreshToken);
                 userSeq = JwtTokenProvider.getUserSeqFromJWT(refreshToken);
                 if (redisTemplate.opsForValue().get(REFRESH_TOKEN_KEY + userSeq) != null) {
                     Date now = new Date();
@@ -67,11 +73,15 @@ public class JwtAuthenticationProvider extends OncePerRequestFilter {
                     setUserDetail(Long.parseLong(userSeq));
                     response.setHeader(ACCESS_TOKEN_COOKIE_NAME, newAccessToken);
                 } else {
-                    request.setAttribute("unauthorization", ResponseCode.NOT_ALLOW_REFRESH_TOKEN.getResultMessage());
+                    setUnauthorizationResponse(request);
                 }
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    private void setUnauthorizationResponse(HttpServletRequest request) {
+        request.setAttribute("unauthorization", ResponseCode.NOT_ALLOW_REFRESH_TOKEN.getResultMessage());
     }
 
     private void setUserDetail(long userSeq) {

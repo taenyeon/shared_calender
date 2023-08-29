@@ -1,22 +1,19 @@
 package com.project.shared_calender.common.encoder;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 @Component
 @RequiredArgsConstructor
 public class EncryptUtil {
     public static String alg = "AES/CBC/PKCS5Padding";
-    private static final String key = "fdshfdsyiuweqrfbdzdsf";
+    private static final String key = "fdshfdsyiuweqrfbdzdsf72hfd5284ss";
     private static final String iv = key.substring(0, 16); // 16byte
 
     public static String encrypt(String raw) throws Exception {

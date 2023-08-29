@@ -65,9 +65,9 @@ public class JwtTokenProvider {
         return refreshToken;
     }
 
-    public void dropRefreshToken(String refreshToken) {
+    public boolean dropRefreshToken(String refreshToken) {
         String key = REFRESH_TOKEN_KEY + refreshToken;
-        redisTemplate.delete(key);
+        return Boolean.TRUE.equals(redisTemplate.delete(key));
     }
 
     public static String getUserSeqFromJWT(String token) {
@@ -97,7 +97,7 @@ public class JwtTokenProvider {
         }
     }
 
-    public static UserEntity getUserEntity() {
+    public static UserEntity getMy() {
         return (UserEntity) SecurityContextHolder
                 .getContext()
                 .getAuthentication()

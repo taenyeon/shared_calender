@@ -1,11 +1,6 @@
 spring:
-  profiles:
-    active: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${DATASOURCE_USERNAME:ENTER_YOUR_DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD:ENTER_YOUR_DATASOURCE_PASSWORD}
-    url: jdbc:mysql://${DATASOURCE_URL:ENTER_YOUR_DATASOURCE_URL}/shared_calender
     hikari:
       connection-timeout: 5000
       validation-timeout: 1000
@@ -18,11 +13,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-  redis:
-    host: ${REDIS_HOST:ENTER_YOUR_REDIS_HOST}
-    port: ${REDIS_PORT:ENTER_YOUR_REDIS_PORT}
   kafka:
-    bootstrap-servers: ${KAFKA_HOST:ENTER_YOUR_KAFKA_HOST}
     consumer:
       group-id: calender
       auto-offset-reset: earliest
@@ -57,13 +48,8 @@ server:
       force: true
 cloud:
   aws:
-    credentials:
-      access-key: ${AWS_CREDENTIAL_ACCESS_KEY:ENTER_YOUR_AWS_ACCESS_KEY}
-      secret-key: ${AWS_CREDENTIAL_SECRET_KEY:ENTER_YOUR_AWS_SECRET_KEY}
     region:
       static: ap-northeast-2
     s3:
-      bucket: ${AWS_S3_BUCKET:ENTER_YOUR_S3_BUCKET}
-      public-domain: ${AWS_S3_PUBLIC_DOMAIN:ENTER_YOUR_S3_PUBLIC_DOMAIN}
     stack:
       auto: false

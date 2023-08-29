@@ -3,7 +3,7 @@ package com.project.shared_calender.domain.user.mapper;
 import com.project.shared_calender.common.encoder.EncryptUtil;
 import com.project.shared_calender.common.interfaces.EntityMapper;
 import com.project.shared_calender.domain.user.dto.User;
-import com.project.shared_calender.domain.user.dto.UserSimpleDetail;
+import com.project.shared_calender.domain.user.dto.UserSimple;
 import com.project.shared_calender.domain.user.entity.UserEntity;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
@@ -35,7 +35,7 @@ public interface UserMapper extends EntityMapper<UserEntity, User> {
     @Mapping(source = "email", target = "email", qualifiedByName = "decrypt")
     @Mapping(source = "name", target = "name", qualifiedByName = "decrypt")
     @Mapping(source = "userProfileEntity", target = "userProfile")
-    UserSimpleDetail toSimpleDetail(final UserEntity entity);
+    UserSimple toSimpleDetail(final UserEntity entity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)

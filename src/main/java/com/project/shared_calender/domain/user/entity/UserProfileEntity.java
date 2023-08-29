@@ -15,12 +15,12 @@ import javax.persistence.Table;
 @Getter
 @Entity
 @Builder
-@Table(name = "userProfile")
+@Table(name = "user_profile")
 public class UserProfileEntity {
 
     @Id
     @Column(name = "id")
     private long id;
-    private String profileText;
-    private String profileImageUrl;
+    private String message;
+    private String imageUrl;
 }

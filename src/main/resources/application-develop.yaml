@@ -1,0 +1,19 @@
+spring:
+  profiles: develop
+  datasource:
+    username: ${DATASOURCE_USERNAME:ENTER_YOUR_DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD:ENTER_YOUR_DATASOURCE_PASSWORD}
+    url: jdbc:mysql://${DATASOURCE_URL:ENTER_YOUR_DATASOURCE_URL}/shared_calender
+  redis:
+    host: ${REDIS_HOST:ENTER_YOUR_REDIS_HOST}
+    port: ${REDIS_PORT:ENTER_YOUR_REDIS_PORT}
+  kafka:
+    bootstrap-servers: ${KAFKA_HOST:ENTER_YOUR_KAFKA_HOST}
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_CREDENTIAL_ACCESS_KEY:ENTER_YOUR_AWS_ACCESS_KEY}
+      secret-key: ${AWS_CREDENTIAL_SECRET_KEY:ENTER_YOUR_AWS_SECRET_KEY}
+    s3:
+      bucket: ${AWS_S3_BUCKET:ENTER_YOUR_S3_BUCKET}
+      public-domain: ${AWS_S3_PUBLIC_DOMAIN:ENTER_YOUR_S3_PUBLIC_DOMAIN}

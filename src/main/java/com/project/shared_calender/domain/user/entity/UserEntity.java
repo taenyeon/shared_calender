@@ -44,8 +44,6 @@ public class UserEntity implements UserDetails{
 
     private LocalDate birthDay;
 
-    private String profileText;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createAt;
 
