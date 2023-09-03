@@ -2,10 +2,12 @@ package com.project.shared_calender.domain.user.constant;
 
 import com.project.shared_calender.common.constant.ResponseCode;
 import com.project.shared_calender.common.exception.ResponseException;
+import lombok.Getter;
 
 import javax.persistence.Converter;
 import java.util.Arrays;
 
+@Getter
 public enum UserType {
     SERVER("S", "서버"),
     NAVER("N", "네이버"),
@@ -13,19 +15,11 @@ public enum UserType {
     GOOGLE("G", "구글");
 
     private final String code;
-    private final String explanation;
+    private final String description;
 
     UserType(String code, String explanation) {
         this.code = code;
-        this.explanation = explanation;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getExplanation() {
-        return explanation;
+        this.description = explanation;
     }
 
     @Converter

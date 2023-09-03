@@ -52,12 +52,10 @@ public class UserService {
     }
 
     // DTO METHOD
-
     public User getById(long id) {
         UserEntity userEntity = getEntityById(id);
         return userMapper.toDto(userEntity);
     }
-
 
     public UserSimple getSimpleById(long id) {
         UserEntity userEntity = getEntityById(id);

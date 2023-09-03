@@ -2,6 +2,7 @@ package com.project.shared_calender.common.security;
 
 import com.project.shared_calender.common.security.constant.TokenStatus;
 import com.project.shared_calender.common.security.domain.TokenDto;
+import com.project.shared_calender.domain.user.dto.UserSimple;
 import com.project.shared_calender.domain.user.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -31,35 +32,35 @@ public class JwtTokenProvider {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
-    public TokenDto generateToken(UserEntity user) {
+    public TokenDto generateToken(long userId) {
         Date now = new Date();
-        String accessToken = generateAccessToken(user.getId(), now);
-        String refreshToken = generateRefreshToken(user.getId(), now);
+        String accessToken = generateAccessToken(userId, now);
+        String refreshToken = generateRefreshToken(userId, now);
         return TokenDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
     }
 
-    public String generateAccessToken(long userSeq, Date now) {
+    public String generateAccessToken(long userId, Date now) {
         Date expiredDate = new Date(now.getTime() + ACCESS_TOKEN_EXPIRATION_MS);
         return Jwts.builder()
-                .setSubject(String.valueOf(userSeq))
+                .setSubject(String.valueOf(userId))
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
     }
 
-    public String generateRefreshToken(long userSeq, Date now) {
+    public String generateRefreshToken(long userId, Date now) {
         Date expiredDate = new Date(now.getTime() + REFRESH_TOKEN_EXPIRATION_MS);
         String refreshToken = Jwts.builder()
-                .setSubject(String.valueOf(userSeq))
+                .setSubject(String.valueOf(userId))
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
-        String key = REFRESH_TOKEN_KEY + userSeq;
+        String key = REFRESH_TOKEN_KEY + userId;
         redisTemplate.opsForValue().set(key, refreshToken);
         redisTemplate.expire(key, REFRESH_TOKEN_EXPIRATION_MS, TimeUnit.MILLISECONDS);
         return refreshToken;
